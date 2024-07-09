@@ -9,7 +9,7 @@ import jakarta.persistence.Id;
 public class Categorie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int idCat;
     private String label;
 
 }
