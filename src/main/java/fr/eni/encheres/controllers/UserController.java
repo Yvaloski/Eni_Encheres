@@ -1,10 +1,9 @@
 package fr.eni.encheres.controllers;
 
 import fr.eni.encheres.bll.UserService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import fr.eni.encheres.bo.User;
+import fr.eni.encheres.dal.UserRepository;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
@@ -12,10 +11,43 @@ public class UserController {
 
     UserService userService;
 
-    @GetMapping("/{id}/profile")
-    public String getUserProfileById(@PathVariable long id) {
-
-        return "";
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
+
+    @GetMapping("/{id}/profile")
+    public User getUserProfileById(@PathVariable long id) {
+        return userService.getUserById(id);
+    }
+
+    @GetMapping("/{id}/profile/edit")
+    public User editUserProfileById(@PathVariable long id) {
+        return userService.getUserById(id);
+    }
+
+    @PostMapping("/{id}/profile/edit")
+    public String saveChangesUserProfile(@RequestBody User user) {
+        userService.updateUser(user);
+        return "OK";
+    }
+
+    @GetMapping("/{id}/delete")
+    public String removeUser(@PathVariable long id) {
+        userService.deleteUser(id);
+        return "OK";
+    }
+
+    @GetMapping("/{id}/deactivate")
+    public String deactivateUser(@PathVariable long id) {
+        //will need to add the attribute "active" in the User class :d
+        return "OK";
+    }
+
+    @GetMapping("/{id}/activate")
+    public String activateUser(@PathVariable long id) {
+        //will need to add the attribute "active" in the User class :d
+        return "OK";
+    }
+
 
 }

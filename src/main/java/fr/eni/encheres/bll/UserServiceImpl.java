@@ -11,6 +11,10 @@ public class UserServiceImpl implements UserService {
 
     UserRepository userRepo;
 
+    public UserServiceImpl(UserRepository userRepo) {
+        this.userRepo = userRepo;
+    }
+
     @Override
     public void addUser(User user) {
         userRepo.save(user);
@@ -34,5 +38,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUser(User user) {
         userRepo.save(user);
+    }
+
+    @Override
+    public User getUserByUsername(String username) {
+        return userRepo.findByPseudo(username);
     }
 }
