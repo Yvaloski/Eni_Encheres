@@ -8,7 +8,7 @@ import java.time.LocalDate;
 public class auction {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idAuction;
 
     @Column
