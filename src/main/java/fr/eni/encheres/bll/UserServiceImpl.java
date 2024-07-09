@@ -35,4 +35,9 @@ public class UserServiceImpl implements UserService {
     public void updateUser(User user) {
         userRepo.save(user);
     }
+
+    @Override
+    public User getUserByUsername(String username) {
+        return userRepo.findByPseudo(username);
+    }
 }
