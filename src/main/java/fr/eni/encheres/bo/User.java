@@ -41,7 +41,10 @@ public class User {
     @Column
     private boolean admin;
 
-    public User(int idUser, String pseudo, String famillyName, String name, String email, String phone, String address, String postalCode, String city, String password, int credit, boolean admin) {
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, optional = false,targetEntity = Auction.class)
+    Auction soldItem;
+
+    public User(int idUser, String pseudo, String famillyName, String name, String email, String phone, String address, String postalCode, int credit, boolean admin, Auction soldItem, String city, String password) {
         this.idUser = idUser;
         this.pseudo = pseudo;
         this.famillyName = famillyName;
@@ -50,10 +53,11 @@ public class User {
         this.phone = phone;
         this.address = address;
         this.postalCode = postalCode;
-        this.city = city;
-        this.password = password;
         this.credit = credit;
         this.admin = admin;
+        this.soldItem = soldItem;
+        this.city = city;
+        this.password = password;
     }
 
     public User() {

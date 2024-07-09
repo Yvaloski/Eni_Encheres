@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-public class auction {
+public class Auction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,13 +17,14 @@ public class auction {
     @Column
     private int auctionPrice;
 
-    public auction(int idAuction, LocalDate auctionDate, int auctionPrice) {
+    public Auction(int idAuction, int auctionPrice, LocalDate auctionDate, User auction) {
         this.idAuction = idAuction;
-        this.auctionDate = auctionDate;
         this.auctionPrice = auctionPrice;
+        this.auctionDate = auctionDate;
+        this.auction = auction;
     }
 
-    public auction() {
+    public Auction() {
 
     }
 
@@ -50,6 +51,9 @@ public class auction {
     public void setAuctionPrice(int auctionPrice) {
         this.auctionPrice = auctionPrice;
     }
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, optional = false,targetEntity = User.class)
+    User auction;
 
     @Override
     public String toString() {
