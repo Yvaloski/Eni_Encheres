@@ -9,12 +9,10 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/users")
 public class UserController {
 
-    private final UserRepository userRepository;
     UserService userService;
 
-    public UserController(UserService userService, UserRepository userRepository) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.userRepository = userRepository;
     }
 
     @GetMapping("/{id}/profile")
@@ -35,12 +33,18 @@ public class UserController {
 
     @GetMapping("/{id}/delete")
     public String removeUser(@PathVariable long id) {
-        userRepository.deleteById(id);
+        userService.deleteUser(id);
         return "OK";
     }
 
     @GetMapping("/{id}/deactivate")
     public String deactivateUser(@PathVariable long id) {
+        //will need to add the attribute "active" in the User class :d
+        return "OK";
+    }
+
+    @GetMapping("/{id}/activate")
+    public String activateUser(@PathVariable long id) {
         //will need to add the attribute "active" in the User class :d
         return "OK";
     }

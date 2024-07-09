@@ -5,14 +5,14 @@ import jakarta.persistence.*;
 @Entity
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idUser;
 
     @Column
     private String pseudo;
 
     @Column
-    private String famillyName;
+    private String familyName;
 
     @Column
     private String name;
@@ -41,23 +41,23 @@ public class User {
     @Column
     private boolean admin;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, optional = false,targetEntity = Auction.class)
-    Auction soldItem;
+    @Column
+    private boolean active;
 
-    public User(int idUser, String pseudo, String famillyName, String name, String email, String phone, String address, String postalCode, int credit, boolean admin, Auction soldItem, String city, String password) {
+    public User(int idUser, String pseudo, String famillyName, String name, String email, String phone, String address, String postalCode, String city, String password, int credit, boolean admin, boolean active) {
         this.idUser = idUser;
         this.pseudo = pseudo;
-        this.famillyName = famillyName;
+        this.familyName = famillyName;
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.address = address;
         this.postalCode = postalCode;
-        this.credit = credit;
-        this.admin = admin;
-        this.soldItem = soldItem;
         this.city = city;
         this.password = password;
+        this.credit = credit;
+        this.admin = admin;
+        this.active = active;
     }
 
     public User() {
@@ -80,12 +80,12 @@ public class User {
         this.pseudo = pseudo;
     }
 
-    public String getFamillyName() {
-        return famillyName;
+    public String getFamilyName() {
+        return familyName;
     }
 
-    public void setFamillyName(String famillyName) {
-        this.famillyName = famillyName;
+    public void setFamilyName(String familyName) {
+        this.familyName = familyName;
     }
 
     public String getName() {
@@ -160,12 +160,16 @@ public class User {
         this.admin = admin;
     }
 
+    public boolean isActive() {return active; }
+
+    public void setActive(boolean active) {this.active = active; }
+
     @Override
     public String toString() {
         return "User{" +
                 "idUser=" + idUser +
                 ", pseudo='" + pseudo + '\'' +
-                ", famillyName='" + famillyName + '\'' +
+                ", famillyName='" + familyName + '\'' +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
@@ -175,6 +179,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", credit=" + credit +
                 ", admin=" + admin +
+                ", active=" + active +
                 '}';
     }
 }
