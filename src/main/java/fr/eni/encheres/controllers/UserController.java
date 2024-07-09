@@ -45,5 +45,11 @@ public class UserController {
         return "OK";
     }
 
+    @GetMapping("/{id}/deactivate")
+    public String activateUser(@PathVariable long id) {
+        //will need to add the attribute "active" in the User class :d
+        return "OK";
+    }
+
 
 }
