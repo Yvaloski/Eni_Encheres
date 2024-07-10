@@ -33,10 +33,10 @@ public class SecurityConfig {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth ->{
             //on donne accès à la requête de type Get / security
-            auth.requestMatchers(HttpMethod.GET, "/security").hasRole("ADMIN")
-                    .requestMatchers("/*").permitAll()
-                    .anyRequest().denyAll();
-
+            auth.requestMatchers("/mvc/**","/swagger-ui/**", "/v3/**", "/swagger-resources/**", "/webjars/**").permitAll()
+                    // On donne accès à la requête de type GET /security uniquement aux ADMIN
+                    .requestMatchers(HttpMethod.GET, "/security").hasRole("ADMIN")
+                    .requestMatchers("/*").permitAll();
         });
 
         http.formLogin(form -> {
