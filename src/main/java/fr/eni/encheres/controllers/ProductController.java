@@ -26,10 +26,10 @@ public class ProductController {
         return productService.getProductById(id);
     }
 
-    @PostMapping("/{id}/add")
-    public String addProduct(@PathVariable long id, @RequestBody Product product) {
+    @PostMapping("/add")
+    public Product addProduct(@RequestBody Product product) {
         productService.addProduct(product);
-        return "Product added";
+        return product;
     }
 
     @GetMapping("/{id}/delete")
