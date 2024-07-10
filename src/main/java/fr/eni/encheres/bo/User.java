@@ -9,13 +9,13 @@ public class User {
     private int idUser;
 
     @Column
-    private String pseudo;
+    private String username;
 
     @Column
     private String familyName;
 
     @Column
-    private String name;
+    private String firstName;
 
     @Column
     private String email;
@@ -39,16 +39,16 @@ public class User {
     private int credit;
 
     @Column
-    private boolean admin;
+    private boolean isAdmin;
 
     @Column
-    private boolean active;
+    private boolean isActive;
 
-    public User(int idUser, String pseudo, String famillyName, String name, String email, String phone, String address, String postalCode, String city, String password, int credit, boolean admin, boolean active) {
+    public User(int idUser, String username, String familyName, String firstName, String email, String phone, String address, String postalCode, String city, String password, int credit, boolean isAdmin, boolean isActive) {
         this.idUser = idUser;
-        this.pseudo = pseudo;
-        this.familyName = famillyName;
-        this.name = name;
+        this.username = username;
+        this.familyName = familyName;
+        this.firstName = firstName;
         this.email = email;
         this.phone = phone;
         this.address = address;
@@ -56,8 +56,8 @@ public class User {
         this.city = city;
         this.password = password;
         this.credit = credit;
-        this.admin = admin;
-        this.active = active;
+        this.isAdmin = isAdmin;
+        this.isActive = isActive;
     }
 
     public User() {
@@ -72,12 +72,12 @@ public class User {
         this.idUser = idUser;
     }
 
-    public String getPseudo() {
-        return pseudo;
+    public String getUsername() {
+        return username;
     }
 
-    public void setPseudo(String pseudo) {
-        this.pseudo = pseudo;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getFamilyName() {
@@ -88,12 +88,12 @@ public class User {
         this.familyName = familyName;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getEmail() {
@@ -153,24 +153,24 @@ public class User {
     }
 
     public boolean isAdmin() {
-        return admin;
+        return isAdmin;
     }
 
-    public void setAdmin(boolean admin) {
-        this.admin = admin;
+    public void setAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
     }
 
-    public boolean isActive() {return active; }
+    public boolean isActive() {return isActive; }
 
-    public void setActive(boolean active) {this.active = active; }
+    public void setActive(boolean isActive) {this.isActive = isActive; }
 
     @Override
     public String toString() {
         return "User{" +
                 "idUser=" + idUser +
-                ", pseudo='" + pseudo + '\'' +
-                ", famillyName='" + familyName + '\'' +
-                ", name='" + name + '\'' +
+                ", username='" + username + '\'' +
+                ", familyName='" + familyName + '\'' +
+                ", firstName='" + firstName + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 ", address='" + address + '\'' +
@@ -178,8 +178,8 @@ public class User {
                 ", city='" + city + '\'' +
                 ", password='" + password + '\'' +
                 ", credit=" + credit +
-                ", admin=" + admin +
-                ", active=" + active +
+                ", isAdmin=" + isAdmin +
+                ", isActive=" + isActive +
                 '}';
     }
 }

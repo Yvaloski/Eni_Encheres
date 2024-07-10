@@ -2,7 +2,6 @@ package fr.eni.encheres.controllers;
 
 import fr.eni.encheres.bll.UserService;
 import fr.eni.encheres.bo.User;
-import fr.eni.encheres.dal.UserRepository;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -25,7 +24,7 @@ public class UserController {
         return userService.getUserById(id);
     }
 
-    @PostMapping("/{id}/profile/edit")
+    @PostMapping("/profile/edit")
     public String saveChangesUserProfile(@RequestBody User user) {
         userService.updateUser(user);
         return "OK";
@@ -39,7 +38,6 @@ public class UserController {
 
     @GetMapping("/{id}/deactivate")
     public String deactivateUser(@PathVariable long id) {
-        //will need to add the attribute "active" in the User class :d
         return "OK";
     }
 
