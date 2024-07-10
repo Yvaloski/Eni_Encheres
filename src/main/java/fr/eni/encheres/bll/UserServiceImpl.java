@@ -41,7 +41,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserByUsername(String username) {
-        return userRepo.findByPseudo(username);
+    public void setActiveStatusByIdUser(long id, boolean active) {
+    }
+
+    @Override
+    public User getUserbyUsernameOrEmail(String username, String email) {
+        return userRepo.findByUsernameOrEmail(username, email).orElse(null);
+    }
+
+    @Override
+    public Boolean existsByEmail(String email) {
+        return userRepo.existsByEmail(email);
+    }
+
+    @Override
+    public Boolean existsByUsername(String username) {
+        return userRepo.existsByUsername(username);
     }
 }
