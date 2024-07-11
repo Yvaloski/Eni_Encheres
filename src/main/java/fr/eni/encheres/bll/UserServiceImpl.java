@@ -1,5 +1,6 @@
 package fr.eni.encheres.bll;
 
+import fr.eni.encheres.bll.services.UserService;
 import fr.eni.encheres.bo.User;
 import fr.eni.encheres.dal.UserRepository;
 import org.springframework.stereotype.Service;

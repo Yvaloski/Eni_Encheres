@@ -1,7 +1,6 @@
-package fr.eni.encheres.bll;
+package fr.eni.encheres.bll.services;
 
 import fr.eni.encheres.bo.Product;
-import fr.eni.encheres.bo.User;
 
 import java.util.List;
 
