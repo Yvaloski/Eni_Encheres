@@ -17,14 +17,14 @@ public class Product {
     private int finalPrice;
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, optional = false, targetEntity = User.class)
     User seller;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, optional = false, targetEntity = Categorie.class)
-    Categorie category;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, optional = false, targetEntity = Category.class)
+    Category category;
     private String saleState;
 
     public Product() {
     }
 
-    public Product(int idProduct, String nameProduct, String descriptionProduct, LocalDate auctionStart, LocalDate auctionEnd, int startPrice, int finalPrice, User seller, Categorie category, String saleState) {
+    public Product(int idProduct, String nameProduct, String descriptionProduct, LocalDate auctionStart, LocalDate auctionEnd, int startPrice, int finalPrice, User seller, Category category, String saleState) {
         this.idProduct = idProduct;
         this.nameProduct = nameProduct;
         this.descriptionProduct = descriptionProduct;
@@ -101,11 +101,11 @@ public class Product {
         this.seller = seller;
     }
 
-    public Categorie getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(Categorie category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
