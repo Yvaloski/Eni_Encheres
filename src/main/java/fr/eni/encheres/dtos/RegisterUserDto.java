@@ -14,27 +14,6 @@ public class RegisterUserDto {
     private String state;
     private String postalCode;
     private String country;
-    private int credit;
-    private boolean admin;
-    private boolean active;
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    public boolean isAdmin() {
-        return admin;
-    }
-
-    public void setAdmin(boolean admin) {
-        this.admin = admin;
-    }
-
-
 
     public String getUserName() {
         return userName;
@@ -127,11 +106,4 @@ public class RegisterUserDto {
         return firstName;
     }
 
-    public int getCredit() {
-        return credit;
-    }
-
-    public void setCredit(int credit) {
-        this.credit = credit;
-    }
 }
