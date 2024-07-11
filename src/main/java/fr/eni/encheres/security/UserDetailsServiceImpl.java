@@ -1,6 +1,6 @@
 package fr.eni.encheres.security;
 
-import fr.eni.encheres.bll.UserService;
+import fr.eni.encheres.bll.services.UserService;
 import fr.eni.encheres.bo.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

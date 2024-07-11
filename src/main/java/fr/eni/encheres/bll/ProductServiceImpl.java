@@ -1,5 +1,6 @@
 package fr.eni.encheres.bll;
 
+import fr.eni.encheres.bll.services.ProductService;
 import fr.eni.encheres.bo.Product;
 
 import fr.eni.encheres.dal.ProductRepository;

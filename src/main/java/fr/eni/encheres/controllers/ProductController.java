@@ -1,6 +1,6 @@
 package fr.eni.encheres.controllers;
 
-import fr.eni.encheres.bll.ProductService;
+import fr.eni.encheres.bll.services.ProductService;
 import fr.eni.encheres.bo.Product;
 import org.springframework.web.bind.annotation.*;
 

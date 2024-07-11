@@ -1,9 +1,14 @@
 package fr.eni.encheres.bo;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
 
 @Entity
-public class User {
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idUser;
@@ -39,10 +44,12 @@ public class User {
     private int credit;
 
     @Column
-    private boolean isAdmin;
+    private boolean admin;
 
     @Column
-    private boolean isActive;
+    private boolean active = false;
+
+
 
     public User(int idUser, String username, String familyName, String firstName, String email, String phone, String address, String postalCode, String city, String password, int credit, boolean isAdmin, boolean isActive) {
         this.idUser = idUser;
@@ -56,12 +63,41 @@ public class User {
         this.city = city;
         this.password = password;
         this.credit = credit;
-        this.isAdmin = isAdmin;
-        this.isActive = isActive;
+        this.admin = admin;
+        this.active = active;
     }
 
     public User() {
 
+    }
+
+
+    public String getUsername() {
+        return username;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
     }
 
     public int getIdUser() {
@@ -70,10 +106,6 @@ public class User {
 
     public void setIdUser(int idUser) {
         this.idUser = idUser;
-    }
-
-    public String getUsername() {
-        return username;
     }
 
     public void setUsername(String username) {
@@ -136,6 +168,8 @@ public class User {
         this.city = city;
     }
 
+
+
     public String getPassword() {
         return password;
     }
@@ -153,16 +187,20 @@ public class User {
     }
 
     public boolean isAdmin() {
-        return isAdmin;
+        return admin;
     }
 
     public void setAdmin(boolean isAdmin) {
-        this.isAdmin = isAdmin;
+        this.admin = isAdmin;
     }
 
-    public boolean isActive() {return isActive; }
+    public boolean isActive() {
+        return active;
+    }
 
-    public void setActive(boolean isActive) {this.isActive = isActive; }
+    public void setActive(boolean isActive) {
+        this.active = isActive;
+    }
 
     @Override
     public String toString() {
@@ -178,8 +216,8 @@ public class User {
                 ", city='" + city + '\'' +
                 ", password='" + password + '\'' +
                 ", credit=" + credit +
-                ", isAdmin=" + isAdmin +
-                ", isActive=" + isActive +
+                ", isAdmin=" + admin +
+                ", isActive=" + active +
                 '}';
     }
 }
