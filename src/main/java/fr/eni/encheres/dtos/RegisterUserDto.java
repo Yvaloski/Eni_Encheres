@@ -14,6 +14,7 @@ public class RegisterUserDto {
     private String state;
     private String postalCode;
     private String country;
+    private int credit;
     private boolean admin;
     private boolean active;
 
@@ -126,4 +127,11 @@ public class RegisterUserDto {
         return firstName;
     }
 
+    public int getCredit() {
+        return credit;
+    }
+
+    public void setCredit(int credit) {
+        this.credit = credit;
+    }
 }
