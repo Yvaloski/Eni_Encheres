@@ -47,7 +47,9 @@ public class User implements UserDetails {
     private boolean admin;
 
     @Column
+
     private boolean active ;
+
 
 
 
@@ -63,8 +65,8 @@ public class User implements UserDetails {
         this.city = city;
         this.password = password;
         this.credit = credit;
-        this.admin = admin;
-        this.active = active;
+        this.admin = isAdmin;
+        this.active = isActive;
     }
 
     public User() {
