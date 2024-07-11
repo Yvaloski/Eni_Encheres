@@ -47,7 +47,7 @@ public class User implements UserDetails {
     private boolean admin;
 
     @Column
-    private boolean active = false;
+    private boolean active ;
 
 
 
