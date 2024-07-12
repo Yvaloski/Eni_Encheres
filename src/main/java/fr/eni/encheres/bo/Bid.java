@@ -12,9 +12,7 @@ public class Bid {
     private int idBid;
 
     @Column
-    private LocalDate bidStartDate;
-    @Column
-    private LocalDate bidEndDate;
+    private LocalDate bidDate;
 
     @Column
     private int offer;
@@ -31,22 +29,6 @@ public class Bid {
 
     }
 
-    public LocalDate getBidEndDate() {
-        return bidEndDate;
-    }
-
-    public void setBidEndDate(LocalDate bidEndDate) {
-        this.bidEndDate = bidEndDate;
-    }
-
-    public LocalDate getBidStartDate() {
-        return bidStartDate;
-    }
-
-    public void setBidStartDate(LocalDate bidStartDate) {
-        this.bidStartDate = bidStartDate;
-    }
-
     public int getIdBid() {
         return idBid;
     }
@@ -55,6 +37,13 @@ public class Bid {
         this.idBid = idBid;
     }
 
+    public LocalDate getBidDate() {
+        return bidDate;
+    }
+
+    public void setBidDate(LocalDate bidDate) {
+        this.bidDate = bidDate;
+    }
 
     public int getOffer() {
         return offer;
@@ -84,7 +73,7 @@ public class Bid {
     public String toString() {
         return "Bid{" +
                 "idBid=" + idBid +
-                ", bidDate=" + bidStartDate +
+                ", bidDate=" + bidDate +
                 ", offer=" + offer +
                 ", bidder=" + bidder +
                 ", product=" + product +
