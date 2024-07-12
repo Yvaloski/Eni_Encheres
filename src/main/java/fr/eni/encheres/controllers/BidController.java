@@ -10,7 +10,7 @@ import fr.eni.encheres.dtos.BidDto;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin
 @RestController
 @RequestMapping("/bids")
 public class BidController {
