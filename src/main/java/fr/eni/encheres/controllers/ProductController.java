@@ -1,5 +1,6 @@
 package fr.eni.encheres.controllers;
 
+import fr.eni.encheres.bll.services.CategoryService;
 import fr.eni.encheres.bll.services.ProductService;
 import fr.eni.encheres.bll.services.UserService;
 import fr.eni.encheres.bo.Category;
@@ -9,6 +10,8 @@ import fr.eni.encheres.dtos.ProductDto;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+
 @CrossOrigin
 @RestController
 @RequestMapping("/products")
@@ -16,10 +19,12 @@ public class ProductController {
 
     ProductService productService;
     UserService userService;
+    CategoryService categoryService;
 
-    public ProductController(ProductService productService, UserService userService) {
+    public ProductController(ProductService productService, UserService userService, CategoryService categoryService) {
         this.productService = productService;
         this.userService = userService;
+        this.categoryService = categoryService;
     }
 
     @GetMapping("/")
@@ -46,9 +51,9 @@ public class ProductController {
         User seller = userService.getUserById(productDto.getSellerId());
         product.setSeller(seller);
 
-//        Category category = productService. productDto.getCategoryId();
-//        category.setIdCat(productDto.getCategoryId());
-//        product.setCategory(productDto.getCategoryId());
+      Optional<Category> category = categoryService.getCategoryById(productDto.getCategoryId());
+
+        product.setCategory(category.orElse(null));
 
         product.setSaleState(productDto.getSaleState());
         productService.addProduct(product);
