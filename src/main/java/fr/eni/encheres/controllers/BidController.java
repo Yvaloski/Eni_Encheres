@@ -1,7 +1,12 @@
 package fr.eni.encheres.controllers;
 
 import fr.eni.encheres.bll.BidService;
+import fr.eni.encheres.bll.services.ProductService;
+import fr.eni.encheres.bll.services.UserService;
 import fr.eni.encheres.bo.Bid;
+import fr.eni.encheres.bo.Product;
+import fr.eni.encheres.bo.User;
+import fr.eni.encheres.dtos.BidDto;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,10 +15,15 @@ import java.util.List;
 @RequestMapping("/bids")
 public class BidController {
 
+    UserService userService;
+    ProductService productService;
     BidService bidService;
 
-    public BidController(BidService bidService) {
+    public BidController(BidService bidService, UserService userService, ProductService productService
+    ) {
+        this.productService = productService;
         this.bidService = bidService;
+        this.userService = userService;
     }
 
     @GetMapping("/")
@@ -27,7 +37,17 @@ public class BidController {
     }
 
     @PostMapping("/new")
-    public Bid addBid(@RequestBody Bid bid) {
+    public Bid addBid(@RequestBody BidDto bidDTO) {
+        Bid bid = new Bid();
+        bid.setBidDate(bidDTO.getBidDate());
+        bid.setOffer(bidDTO.getOffer());
+
+        User bidder = userService.getUserById(bidDTO.getBidderId());
+        bid.setBidder(bidder);
+
+        Product product = productService.getProductById(bidDTO.getProductId());
+        bid.setProduct(product);
+
         bidService.addBid(bid);
         return bid;
     }
