@@ -16,7 +16,7 @@ public class BidController {
         this.bidService = bidService;
     }
 
-    @GetMapping("/all")
+    @GetMapping("/")
     public List<Bid> getBids() {
         return bidService.getBids();
     }
