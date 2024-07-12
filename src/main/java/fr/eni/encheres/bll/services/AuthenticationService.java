@@ -44,8 +44,9 @@ public class AuthenticationService {
         user.setCity(input.getCity());
         user.setPassword(passwordEncoder.encode(input.getPassword())); // Encoder le mot de passe
         user.setCredit(0);
-        user.setAdmin(false);
+        user.setAdmin(true);
         user.setActive(true);
+        user.setRole("ROLE_USER");
 
 
         // Enregistrer l'utilisateur dans la base de données

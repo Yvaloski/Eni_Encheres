@@ -15,6 +15,18 @@ public class RegisterUserDto {
     private String postalCode;
     private String country;
 
+
+    private String role;
+
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     public String getUserName() {
         return userName;
     }

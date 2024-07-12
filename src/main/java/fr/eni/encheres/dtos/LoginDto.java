@@ -1,4 +1,4 @@
-package fr.eni.encheres.bo;
+package fr.eni.encheres.dtos;
 
 public class LoginDto {
     private String usernameOrEmail;
