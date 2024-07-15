@@ -7,6 +7,7 @@ import fr.eni.encheres.bo.Category;
 import fr.eni.encheres.bo.Product;
 import fr.eni.encheres.bo.User;
 import fr.eni.encheres.dtos.ProductDto;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -68,9 +69,32 @@ public class ProductController {
     }
 
     @PostMapping("/{id}/edit")
-    public String editProduct(@PathVariable long id, @RequestBody Product product) {
-        productService.updateProduct(product);
-        return "Product edited";
+    public ResponseEntity<Product> editProduct(@PathVariable long id, @RequestBody ProductDto productDto) {
+        Product existingProduct = productService.getProductById(id);
+
+        if (existingProduct == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        existingProduct.setNameProduct(productDto.getNameProduct());
+        existingProduct.setDescriptionProduct(productDto.getDescriptionProduct());
+        existingProduct.setAuctionStart(productDto.getAuctionStart());
+        existingProduct.setAuctionEnd(productDto.getAuctionEnd());
+        existingProduct.setStartPrice(productDto.getStartPrice());
+        existingProduct.setFinalPrice(productDto.getFinalPrice());
+        existingProduct.setUrlImg(productDto.getUrlImg());
+
+        User seller = userService.getUserById(productDto.getSellerId());
+        existingProduct.setSeller(seller);
+
+        Optional<Category> category = categoryService.getCategoryById(productDto.getCategoryId());
+        existingProduct.setCategory(category.orElse(null));
+
+        existingProduct.setSaleState(productDto.getSaleState());
+
+        Product updatedProduct = productService.updateProduct(existingProduct);
+
+        return ResponseEntity.ok(updatedProduct);
     }
 
 }
