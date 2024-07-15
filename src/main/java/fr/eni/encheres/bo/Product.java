@@ -20,11 +20,12 @@ public class Product {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, optional = false, targetEntity = Category.class)
     Category category;
     private String saleState;
+    private String urlImg;
 
     public Product() {
     }
 
-    public Product(int idProduct, String nameProduct, String descriptionProduct, LocalDate auctionStart, LocalDate auctionEnd, int startPrice, int finalPrice, User seller, Category category, String saleState) {
+    public Product(int idProduct, String nameProduct, String descriptionProduct, LocalDate auctionStart, LocalDate auctionEnd, int startPrice, int finalPrice, User seller, Category category, String saleState, String urlImg) {
         this.idProduct = idProduct;
         this.nameProduct = nameProduct;
         this.descriptionProduct = descriptionProduct;
@@ -35,6 +36,15 @@ public class Product {
         this.seller = seller;
         this.category = category;
         this.saleState = saleState;
+        this.urlImg = urlImg;
+    }
+
+    public String getUrlImg() {
+        return urlImg;
+    }
+
+    public void setUrlImg(String urlImg) {
+        this.urlImg = urlImg;
     }
 
     public int getIdProduct() {

@@ -47,6 +47,7 @@ public class ProductController {
         product.setAuctionEnd(productDto.getAuctionEnd());
         product.setStartPrice(productDto.getStartPrice());
         product.setFinalPrice(productDto.getFinalPrice());
+        product.setUrlImg(productDto.getUrlImg());
 
         User seller = userService.getUserById(productDto.getSellerId());
         product.setSeller(seller);

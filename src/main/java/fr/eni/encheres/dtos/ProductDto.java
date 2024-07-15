@@ -13,6 +13,15 @@ public class ProductDto {
     private int sellerId;
     private int categoryId;
     private String saleState;
+    private String urlImg;
+
+    public String getUrlImg() {
+        return urlImg;
+    }
+
+    public void setUrlImg(String urlImg) {
+        this.urlImg = urlImg;
+    }
 
     public int getIdProduct() {
         return idProduct;
