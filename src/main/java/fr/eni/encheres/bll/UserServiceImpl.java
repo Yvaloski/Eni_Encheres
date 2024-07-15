@@ -3,6 +3,7 @@ package fr.eni.encheres.bll;
 import fr.eni.encheres.bll.services.UserService;
 import fr.eni.encheres.bo.User;
 import fr.eni.encheres.dal.UserRepository;
+import fr.eni.encheres.exceptions.UserNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,7 +29,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserById(long id) {
-        return userRepo.findById(id).orElse(null);
+        return userRepo.findById(id).orElseThrow(() -> new UserNotFoundException("User not found"));
     }
 
     @Override

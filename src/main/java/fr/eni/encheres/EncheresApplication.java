@@ -13,6 +13,7 @@ public class EncheresApplication {
 		SpringApplication.run(EncheresApplication.class, args);
 	}
 
+	/*
 	@Bean
 	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurer() {
@@ -22,4 +23,6 @@ public class EncheresApplication {
 			}
 		};
 	}
+
+	 */
 }
