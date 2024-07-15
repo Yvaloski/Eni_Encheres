@@ -39,4 +39,9 @@ public class CategoryServiceImpl implements CategoryService {
     public Category updateCategory(Category category) {
         return categoryRepository.save(category);
     }
+
+    @Override
+    public Category getCategoryByName(String name) {
+        return categoryRepository.findCategoryByLabel(name).orElse(null);
+    }
 }
