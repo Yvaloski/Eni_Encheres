@@ -1,5 +1,6 @@
 package fr.eni.encheres.controllers;
 
+import fr.eni.encheres.api.config.InMemoryTokenBlacklist;
 import fr.eni.encheres.bll.services.AuthenticationService;
 import fr.eni.encheres.bll.services.JwtService;
 import fr.eni.encheres.bll.services.UserService;
@@ -7,9 +8,11 @@ import fr.eni.encheres.bo.User;
 import fr.eni.encheres.dtos.LoginUserDto;
 import fr.eni.encheres.dtos.RegisterUserDto;
 import fr.eni.encheres.utils.LoginResponse;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
@@ -53,5 +56,29 @@ public class AuthenticationController {
         loginResponse.setExpiresIn(jwtService.getExpirationTime());
 
         return ResponseEntity.ok(loginResponse);
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(HttpServletRequest request, InMemoryTokenBlacklist tokenBlacklist) {
+        String token = extractTokenFromRequest(request);
+        tokenBlacklist.addToBlacklist(token);
+
+        // Clear any session-related data if necessary
+
+        return ResponseEntity.ok("Logged out successfully");
+    }
+
+    public String extractTokenFromRequest(HttpServletRequest request) {
+        // Get the Authorization header from the request
+        String authorizationHeader = request.getHeader("Authorization");
+
+        // Check if the Authorization header is not null and starts with "Bearer "
+        if (StringUtils.hasText(authorizationHeader) && authorizationHeader.startsWith("Bearer ")) {
+            // Extract the JWT token (remove "Bearer " prefix)
+            return authorizationHeader.substring(7);
+        }
+
+        // If the Authorization header is not valid, return null
+        return null;
     }
 }
