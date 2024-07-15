@@ -13,16 +13,18 @@ public class EncheresApplication {
 		SpringApplication.run(EncheresApplication.class, args);
 	}
 
-	/*
 	@Bean
 	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/*").allowedOrigins("http://localhost:5173");
+				registry.addMapping("/**")
+						.allowedOrigins("http://localhost:5173") // Mettre à jour l'origine ici
+						.allowedMethods("GET", "POST", "PUT", "DELETE")
+						.allowedHeaders("Content-Type", "Authorization")
+						.maxAge(3600);
 			}
 		};
 	}
 
-	 */
 }
