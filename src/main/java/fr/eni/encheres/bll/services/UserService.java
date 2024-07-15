@@ -14,7 +14,7 @@ public interface UserService {
 
      void deleteUser(long id);
 
-     void updateUser(User user);
+     User updateUser(User user);
 
      void setActiveStatusByIdUser (long id, boolean active);
 

@@ -2,6 +2,8 @@ package fr.eni.encheres.controllers;
 
 import fr.eni.encheres.bll.services.UserService;
 import fr.eni.encheres.bo.User;
+import fr.eni.encheres.dtos.UserDto;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 @RestController
@@ -19,15 +21,27 @@ public class UserController {
         return userService.getUserById(id);
     }
 
-    @GetMapping("/{id}/profile/edit")
-    public User editUserProfileById(@PathVariable long id) {
-        return userService.getUserById(id);
-    }
+    @PatchMapping("/{id}/profile/edit")
+    public ResponseEntity<User> updateUserProfile(@PathVariable long id, @RequestBody UserDto userDto) {
+        User existingUser = userService.getUserById(id);
 
-    @PostMapping("/profile/edit")
-    public String saveChangesUserProfile(@RequestBody User user) {
-        userService.updateUser(user);
-        return "OK";
+        if (existingUser == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        existingUser.setUsername(userDto.getUsername());
+        existingUser.setFirstName(userDto.getFirstName());
+        existingUser.setFamilyName(userDto.getLastName());
+        existingUser.setEmail(userDto.getEmail());
+        existingUser.setPhone(userDto.getPhone());
+        existingUser.setAddress(userDto.getAddress());
+        existingUser.setPostalCode(userDto.getPostalCode());
+        existingUser.setCity(userDto.getCity());
+        existingUser.setPassword(userDto.getPassword());
+
+        User updatedUser = userService.updateUser(existingUser);
+
+        return ResponseEntity.ok(updatedUser);
     }
 
     @GetMapping("/{id}/delete")
