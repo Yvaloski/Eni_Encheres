@@ -1,5 +1,6 @@
 package fr.eni.encheres.controllers;
 
+import fr.eni.encheres.exceptions.CategoryNotFoundException;
 import fr.eni.encheres.exceptions.ProductNotFoundException;
 import fr.eni.encheres.exceptions.UserNotFoundException;
 import org.springframework.http.HttpHeaders;
@@ -53,6 +54,12 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ProductNotFoundException.class)
     public ResponseEntity<Map<String, List<String>>> handleNotFoundException(ProductNotFoundException ex) {
+        List<String> errors = Collections.singletonList(ex.getMessage());
+        return new ResponseEntity<>(getErrorsMap(errors), new HttpHeaders(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(ProductNotFoundException.class)
+    public ResponseEntity<Map<String, List<String>>> handleNotFoundException(CategoryNotFoundException ex) {
         List<String> errors = Collections.singletonList(ex.getMessage());
         return new ResponseEntity<>(getErrorsMap(errors), new HttpHeaders(), HttpStatus.NOT_FOUND);
     }
