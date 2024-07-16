@@ -15,9 +15,9 @@ public class Product {
     private LocalDate auctionEnd;
     private int startPrice;
     private int finalPrice;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, optional = false, targetEntity = User.class)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false, targetEntity = User.class)
     User seller;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, optional = false, targetEntity = Category.class)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.DETACH, optional = false, targetEntity = Category.class)
     Category category;
     private String saleState;
     private String urlImg;

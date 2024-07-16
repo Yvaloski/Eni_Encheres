@@ -32,10 +32,15 @@ public class ProductController {
 
     @GetMapping("/")
     public List<Product> getProducts() {
-        System.out.println(productService.getProducts());
         return productService.getProducts();
     }
 
+    @GetMapping("/{id}/img")
+    public String getProductImg(@PathVariable long id){
+        Product product = productService.getProductById(id);
+        return product.getUrlImg();
+
+    }
     @GetMapping("/{id}")
     public Map<String, Product> getProductById(@PathVariable long id) {
         return productService.getByIdProduct(id);

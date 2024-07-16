@@ -15,7 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:8080/")
 @RequestMapping("/auth")
 @RestController
 public class AuthenticationController {
@@ -28,7 +28,13 @@ public class AuthenticationController {
         this.authenticationService = authenticationService;
         this.userService = userService;
     }
-
+    @GetMapping("/me")
+    public ResponseEntity<User> getUser(HttpServletRequest request) {
+        String token = extractTokenFromRequest(request);
+        String email = jwtService.extractUsername(token);
+        User user = userService.getUserByEmail(email);
+        return ResponseEntity.ok(user);
+    }
     @PostMapping("/signup")
     public ResponseEntity<?> register(@Valid @RequestBody RegisterUserDto registerUserDto) {
         // add check for username exists in a DB
