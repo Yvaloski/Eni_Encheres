@@ -17,12 +17,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException {
-        User user = userService.getUserByEmail(usernameOrEmail);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userService.getUserByEmail(email);
         if(user == null) {
-            throw new UsernameNotFoundException("Unknown user "+ usernameOrEmail);
+            throw new UsernameNotFoundException("Unknown user "+ email);
         }
-        return org.springframework.security.core.userdetails.User.withUsername(user.getUsername())
+        return org.springframework.security.core.userdetails.User.withUsername(user.getEmail()) // Utilisez l'email au lieu du username
                 .password(user.getPassword())
                 .authorities("ROLE_USER")
                 .accountExpired(false)
