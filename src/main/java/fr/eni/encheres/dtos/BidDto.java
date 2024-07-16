@@ -3,6 +3,7 @@ package fr.eni.encheres.dtos;
 import java.time.LocalDate;
 
 public class BidDto {
+
     private LocalDate bidDate;
     private int offer;
     private int bidderId;
