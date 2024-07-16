@@ -1,6 +1,8 @@
 package fr.eni.encheres.bo;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDate;
 
@@ -21,8 +23,9 @@ public class Bid {
     @JoinColumn(name = "bidder_id")
     User bidder;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id")
+    @ManyToOne( targetEntity = Product.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     Product product;
 
     public Bid() {

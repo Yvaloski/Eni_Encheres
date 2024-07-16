@@ -7,8 +7,10 @@ import fr.eni.encheres.bo.Bid;
 import fr.eni.encheres.bo.Product;
 import fr.eni.encheres.bo.User;
 import fr.eni.encheres.dtos.BidDto;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 @CrossOrigin
 @RestController
@@ -52,10 +54,23 @@ public class BidController {
         return bid;
     }
 
-    @PostMapping("/{id}/edit")
-    public String editBid(@PathVariable long id, @RequestBody Bid bid) {
-        bidService.updateBid(bid);
-        return "Bid edited";
+    @PatchMapping("/{id}/offer")
+    public ResponseEntity<Bid> editBid(@PathVariable long id, @RequestBody Bid newBid) {
+        Bid existingBid = bidService.getBidById(id);
+        if (existingBid == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        if (newBid.getOffer() <= existingBid.getOffer()) {
+            return ResponseEntity.badRequest().body(null);
+        }
+
+        existingBid.setOffer(newBid.getOffer());
+        existingBid.setBidder(newBid.getBidder());
+        existingBid.setBidDate(LocalDate.now());
+        bidService.updateBid(existingBid);
+
+        return ResponseEntity.ok(existingBid);
     }
 
     @GetMapping("/{id}/cancel")
