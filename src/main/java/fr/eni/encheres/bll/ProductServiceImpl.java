@@ -4,6 +4,7 @@ import fr.eni.encheres.bll.services.ProductService;
 import fr.eni.encheres.bo.Product;
 
 import fr.eni.encheres.dal.ProductRepository;
+import fr.eni.encheres.dtos.ProductResultDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -54,5 +55,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Map<String, Product>> getOffersByUserId(long id) {
         return productRepo.findByBidderId(id);
+    }
+
+    @Override
+    public Map<String, Product> getByIdProduct(long id) {
+        return productRepo.findProductById(id);
     }
 }

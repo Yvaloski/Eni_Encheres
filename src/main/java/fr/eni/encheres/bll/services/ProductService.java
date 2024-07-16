@@ -1,6 +1,7 @@
 package fr.eni.encheres.bll.services;
 
 import fr.eni.encheres.bo.Product;
+import fr.eni.encheres.dtos.ProductResultDTO;
 
 import java.util.List;
 import java.util.Map;
@@ -19,4 +20,6 @@ public interface ProductService {
     List<Product> getSalesByUserId(long id);
 
     List<Map<String, Product>> getOffersByUserId(long id);
+
+    Map<String, Product> getByIdProduct(long id);
 }
