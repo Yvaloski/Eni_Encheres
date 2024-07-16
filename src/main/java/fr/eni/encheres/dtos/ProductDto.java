@@ -1,16 +1,27 @@
 package fr.eni.encheres.dtos;
 
+import jakarta.validation.constraints.NotBlank;
+import org.hibernate.validator.constraints.Length;
+
 import java.time.LocalDate;
 
 public class ProductDto {
     private int idProduct;
+    @NotBlank(message = "Name of the product cannot be blank")
+    @Length(min = 3, max = 40, message = "Name of the product must be between 3-40 characters")
     private String nameProduct;
+    @NotBlank(message = "Description of the product cannot be blank")
+    @Length(min = 3, max = 512, message = "Description of the product must be between 3-512 characters")
     private String descriptionProduct;
+    @NotBlank(message = "The date of the opening of the auction cannot be blank")
     private LocalDate auctionStart;
     private LocalDate auctionEnd;
+    @NotBlank(message = "You must enter a starting price")
     private int startPrice;
     private int finalPrice;
+    @NotBlank(message = "The auction must have a seller")
     private int sellerId;
+    @NotBlank(message = "The auction must have a category")
     private int categoryId;
     private String saleState;
     private String urlImg;

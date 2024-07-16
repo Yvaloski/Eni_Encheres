@@ -7,6 +7,7 @@ import fr.eni.encheres.dal.ProductRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -43,5 +44,15 @@ public class ProductServiceImpl implements ProductService {
     public Product updateProduct(Product product) {
         productRepo.save(product);
         return product;
+    }
+
+    @Override
+    public List<Product> getSalesByUserId(long id) {
+        return productRepo.findBySellerIdUser(id);
+    }
+
+    @Override
+    public List<Map<String, Product>> getOffersByUserId(long id) {
+        return productRepo.findByBidderId(id);
     }
 }

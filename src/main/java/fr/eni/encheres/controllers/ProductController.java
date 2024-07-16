@@ -7,10 +7,12 @@ import fr.eni.encheres.bo.Category;
 import fr.eni.encheres.bo.Product;
 import fr.eni.encheres.bo.User;
 import fr.eni.encheres.dtos.ProductDto;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @CrossOrigin
@@ -40,7 +42,7 @@ public class ProductController {
     }
 
     @PostMapping("/add")
-    public Product addProduct(@RequestBody ProductDto productDto) {
+    public Product addProduct(@Valid @RequestBody ProductDto productDto) {
         Product product = new Product();
         product.setNameProduct(productDto.getNameProduct());
         product.setDescriptionProduct(productDto.getDescriptionProduct());
@@ -69,7 +71,7 @@ public class ProductController {
     }
 
     @PostMapping("/{id}/edit")
-    public ResponseEntity<Product> editProduct(@PathVariable long id, @RequestBody ProductDto productDto) {
+    public ResponseEntity<Product> editProduct(@Valid @PathVariable long id, @RequestBody ProductDto productDto) {
         Product existingProduct = productService.getProductById(id);
 
         if (existingProduct == null) {
@@ -96,5 +98,17 @@ public class ProductController {
 
         return ResponseEntity.ok(updatedProduct);
     }
+
+    @GetMapping("/user-bids/{id}")
+    public List<Map<String, Product>> getUserAuctions(@PathVariable long id) {
+        return productService.getOffersByUserId(id);
+    }
+
+    @GetMapping("/user-sales/{id}")
+    public List<Product> getUserSales(@PathVariable long id) {
+        return productService.getSalesByUserId(id);
+    }
+
+
 
 }
