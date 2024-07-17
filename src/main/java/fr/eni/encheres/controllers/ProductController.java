@@ -42,8 +42,8 @@ public class ProductController {
 
     }
     @GetMapping("/{id}")
-    public Product getProductById(@PathVariable long id) {
-        return productService.getProductById(id);
+    public Map<String, Product> getProductById(@PathVariable long id) {
+        return productService.getByIdProduct(id);
     }
 
     @PostMapping("/add")
@@ -114,6 +114,10 @@ public class ProductController {
         return productService.getSalesByUserId(id);
     }
 
+    @GetMapping("/category/{label}")
+    public List<Product> getProductsByCategory(@PathVariable String label) {
+        return productService.getProductsByCategory(label);
+    }
 
 
 }

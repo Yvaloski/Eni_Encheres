@@ -1,5 +1,6 @@
 package fr.eni.encheres.dtos;
 
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
@@ -16,11 +17,12 @@ public class ProductDto {
     private String descriptionProduct;
     private LocalDate auctionStart;
     private LocalDate auctionEnd;
+    @Min(value = 1, message = "You must enter a starting price")
     private int startPrice;
     private int finalPrice;
-
+    @Min(value = 1 , message = "The auction must have a seller")
     private int sellerId;
-
+    @Min(value = 1 , message = "The auction must have a category")
     private int categoryId;
     private String saleState;
     private String urlImg;

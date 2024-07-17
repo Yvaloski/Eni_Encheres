@@ -21,7 +21,7 @@ public class UserDto {
     private String firstName;
     @NotBlank(message = "Lastname cannot be blank")
     @Length(min = 3, max = 20, message = "Lastname must be between 3-20 characters")
-    private String lastName;
+    private String familyName;
     @Pattern(regexp = "0[0-9]{9}", message = "The phone number must follow the standard phone number format : start with 0 and followed by 9 numbers")
     private String phone;
     @NotBlank(message = "Address cannot be blank")
@@ -64,12 +64,12 @@ public class UserDto {
         this.firstName = firstName;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getFamilyName() {
+        return familyName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setFamilyName(String lastName) {
+        this.familyName = lastName;
     }
 
     public String getEmail() {
