@@ -1,8 +1,6 @@
 package fr.eni.encheres.dtos;
 
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-
 import java.time.LocalDate;
 
 public class BidDto {
