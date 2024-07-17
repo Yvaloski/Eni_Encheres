@@ -1,8 +1,10 @@
 package fr.eni.encheres.bll;
 
 import fr.eni.encheres.bll.services.ProductService;
+import fr.eni.encheres.bo.Category;
 import fr.eni.encheres.bo.Product;
 
+import fr.eni.encheres.dal.CategoryRepository;
 import fr.eni.encheres.dal.ProductRepository;
 import fr.eni.encheres.dtos.ProductResultDTO;
 import org.springframework.stereotype.Service;
@@ -13,10 +15,12 @@ import java.util.Map;
 @Service
 public class ProductServiceImpl implements ProductService {
 
+    private final CategoryRepository categoryRepository;
     ProductRepository productRepo;
 
-    public ProductServiceImpl(ProductRepository productRepo) {
+    public ProductServiceImpl(ProductRepository productRepo, CategoryRepository categoryRepository) {
         this.productRepo = productRepo;
+        this.categoryRepository = categoryRepository;
     }
 
     @Override
@@ -60,5 +64,14 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Map<String, Product> getByIdProduct(long id) {
         return productRepo.findProductById(id);
+    }
+
+    @Override
+    public List<Product> getProductsByCategory(String label) {
+        Category category = categoryRepository.findCategoryByLabel(label).orElse(null);
+        if (category == null) {
+            return null;
+        }
+        return productRepo.findProductsByCategory(category);
     }
 }

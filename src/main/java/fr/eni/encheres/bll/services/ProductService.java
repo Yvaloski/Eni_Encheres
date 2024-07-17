@@ -22,4 +22,6 @@ public interface ProductService {
     List<Map<String, Product>> getOffersByUserId(long id);
 
     Map<String, Product> getByIdProduct(long id);
+
+    List<Product> getProductsByCategory(String label);
 }

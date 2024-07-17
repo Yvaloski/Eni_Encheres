@@ -1,5 +1,6 @@
 package fr.eni.encheres.dal;
 
+import fr.eni.encheres.bo.Category;
 import fr.eni.encheres.bo.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -56,4 +57,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             + " WHERE p.id_product = ?1"
             , nativeQuery = true)
     Map<String, Product> findProductById(Long id);
+
+    List<Product> findProductsByCategory(Category category);
 }

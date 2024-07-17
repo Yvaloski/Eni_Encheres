@@ -114,6 +114,10 @@ public class ProductController {
         return productService.getSalesByUserId(id);
     }
 
+    @GetMapping("/category/{label}")
+    public List<Product> getProductsByCategory(@PathVariable String label) {
+        return productService.getProductsByCategory(label);
+    }
 
 
 }
