@@ -13,7 +13,6 @@ public class ProductDto {
     @NotBlank(message = "Description of the product cannot be blank")
     @Length(min = 3, max = 512, message = "Description of the product must be between 3-512 characters")
     private String descriptionProduct;
-    @NotBlank(message = "The date of the opening of the auction cannot be blank")
     private LocalDate auctionStart;
     private LocalDate auctionEnd;
     @NotBlank(message = "You must enter a starting price")

@@ -1,6 +1,6 @@
 package fr.eni.encheres.controllers;
 
-import fr.eni.encheres.bll.BidService;
+import fr.eni.encheres.bll.services.BidService;
 import fr.eni.encheres.bll.services.ProductService;
 import fr.eni.encheres.bll.services.UserService;
 import fr.eni.encheres.bo.Bid;
@@ -41,7 +41,7 @@ public class BidController {
     @PostMapping("/new")
     public Bid addBid(@RequestBody BidDto bidDTO) {
         Bid bid = new Bid();
-        bid.setBidDate(bidDTO.getBidDate());
+        bid.setBidDate(LocalDate.now());
         bid.setOffer(bidDTO.getOffer());
 
         User bidder = userService.getUserById(bidDTO.getBidderId());
