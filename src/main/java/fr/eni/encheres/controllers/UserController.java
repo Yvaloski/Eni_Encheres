@@ -31,7 +31,7 @@ public class UserController {
 
         existingUser.setUsername(userDto.getUsername());
         existingUser.setFirstName(userDto.getFirstName());
-        existingUser.setFamilyName(userDto.getLastName());
+        existingUser.setFamilyName(userDto.getFamilyName());
         existingUser.setEmail(userDto.getEmail());
         existingUser.setPhone(userDto.getPhone());
         existingUser.setAddress(userDto.getAddress());
