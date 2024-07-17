@@ -6,7 +6,6 @@ import fr.eni.encheres.bo.Product;
 
 import fr.eni.encheres.dal.CategoryRepository;
 import fr.eni.encheres.dal.ProductRepository;
-import fr.eni.encheres.dtos.ProductResultDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -1,7 +1,6 @@
 package fr.eni.encheres.bll.services;
 
 import fr.eni.encheres.bo.Product;
-import fr.eni.encheres.dtos.ProductResultDTO;
 
 import java.util.List;
 import java.util.Map;
