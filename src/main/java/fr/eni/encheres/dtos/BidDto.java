@@ -1,5 +1,6 @@
 package fr.eni.encheres.dtos;
 
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 
 import java.time.LocalDate;
@@ -7,11 +8,11 @@ import java.time.LocalDate;
 public class BidDto {
 
     private LocalDate bidDate;
-    @NotBlank(message = "You muist enter an offer")
+    @Min(value = 1, message = "You must enter an offer")
     private int offer;
-    @NotBlank(message = "A bid must have a bidder")
+    @Min(value = 1, message = "A bid must have a bidder")
     private int bidderId;
-    @NotBlank(message = "A bid must have a product")
+    @Min(value = 1, message = "A bid must have a product")
     private int productId;
 
     public LocalDate getBidDate() {
