@@ -8,6 +8,7 @@ import fr.eni.encheres.dal.CategoryRepository;
 import fr.eni.encheres.dal.ProductRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -59,6 +60,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product updateProduct(Product product) {
+        if (!product.getAuctionStart().isAfter(LocalDate.now())) {
+            throw new RuntimeException("The auction started, you cannot modify it anymore");
+        }
+        if(product.getAuctionEnd().isBefore(LocalDate.now())) {
+            throw new RuntimeException("The auction ended, you cannot modify it anymore");
+        }
         this.validateProduct(product);
         productRepo.save(product);
         return product;
