@@ -24,10 +24,20 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void addProduct(Product product) {
+        this.validateProduct(product);
+        productRepo.save(product);
+    }
+
+    private void validateProduct(Product product) {
         if (!product.getSeller().isActive()) {
             throw new RuntimeException("The user is not active, they cannot sell items");
         }
-        productRepo.save(product);
+        if(!product.getAuctionEnd().isAfter(product.getAuctionStart())) {
+            throw new RuntimeException("The auction end Date must be after start Date");
+        }
+        if(product.getAuctionStart().plusMonths(1).isAfter(product.getAuctionEnd())) {
+            throw new RuntimeException("The auction cannot last for more than one month");
+        }
     }
 
     @Override
@@ -49,6 +59,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product updateProduct(Product product) {
+        this.validateProduct(product);
         productRepo.save(product);
         return product;
     }
