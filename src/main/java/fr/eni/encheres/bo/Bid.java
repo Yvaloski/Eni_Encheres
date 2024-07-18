@@ -23,7 +23,7 @@ public class Bid {
     @JoinColumn(name = "bidder_id")
     User bidder;
 
-    @ManyToOne( targetEntity = Product.class, fetch = FetchType.LAZY)
+    @ManyToOne( targetEntity = Product.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     Product product;
