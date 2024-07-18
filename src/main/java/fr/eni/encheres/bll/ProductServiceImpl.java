@@ -24,6 +24,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void addProduct(Product product) {
+        if (!product.getSeller().isActive()) {
+            throw new RuntimeException("The user is not active, they cannot sell items");
+        }
         productRepo.save(product);
     }
 

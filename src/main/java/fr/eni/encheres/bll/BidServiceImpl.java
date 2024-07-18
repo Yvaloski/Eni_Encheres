@@ -30,6 +30,10 @@ public class BidServiceImpl implements BidService {
     public void addBid(Bid bid) {
 
         User precedentBidder = new User();
+
+        if (!bid.getBidder().isActive()) {
+            throw new RuntimeException("The user isn't active, they cannot bid");
+        }
         if (bid.getProduct() == null) {
             throw new ProductNotFoundException("Product Not Found");
         }
