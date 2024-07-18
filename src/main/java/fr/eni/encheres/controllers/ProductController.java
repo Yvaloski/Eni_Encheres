@@ -119,5 +119,9 @@ public class ProductController {
         return productService.getProductsByCategory(label);
     }
 
+    @GetMapping("/by-product-name/{name}")
+    public List<Product> getProductsByName(@PathVariable String name) {
+        return productService.getProductsByName(name);
+    }
 
 }
