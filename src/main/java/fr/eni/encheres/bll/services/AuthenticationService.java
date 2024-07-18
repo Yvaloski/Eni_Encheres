@@ -5,12 +5,15 @@ import fr.eni.encheres.dal.UserRepository;
 import fr.eni.encheres.dtos.LoginUserDto;
 import fr.eni.encheres.dtos.RegisterUserDto;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AuthenticationService {
+public class AuthenticationService  {
     private final UserRepository userRepository;
 
     private final PasswordEncoder passwordEncoder;
@@ -64,4 +67,5 @@ public class AuthenticationService {
         return userRepository.findByEmail(input.getEmail())
                 .orElseThrow();
     }
+
 }

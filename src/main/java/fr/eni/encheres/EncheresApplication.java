@@ -22,7 +22,7 @@ public class EncheresApplication {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**")
-						.allowedOrigins("http://localhost:5173") // Mettre à jour l'origine ici
+						.allowedOrigins("http://localhost:5173")
 						.allowedMethods("GET", "POST", "PUT", "DELETE")
 						.allowedHeaders("Content-Type", "Authorization")
 						.maxAge(3600);

@@ -86,7 +86,7 @@ public class User implements UserDetails {
 
 
     public String getUsername() {
-        return username;
+        return email;
     }
 
     @Override
@@ -112,6 +112,7 @@ public class User implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role));
     }
+
 
     public int getIdUser() {
         return idUser;
