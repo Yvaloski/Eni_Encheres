@@ -16,4 +16,5 @@ public interface BidService {
 
     void updateBid(Bid bid);
 
+    Bid getHighestBid(long idProduct);
 }
