@@ -33,6 +33,12 @@ public class BidServiceImpl implements BidService {
         if (bid.getProduct() == null) {
             throw new ProductNotFoundException("Product Not Found");
         }
+        if (bid.getBidDate().isBefore(bid.getProduct().getAuctionStart()) ) {
+            throw new RuntimeException("The auction hasn't started yet.");
+        }
+        if (bid.getBidDate().isAfter(bid.getProduct().getAuctionEnd()) ) {
+            throw new RuntimeException("The auction has ended.");
+        }
         long idProduct = bid.getProduct().getIdProduct();
 
         User newBidder = bid.getBidder();
