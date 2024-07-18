@@ -56,8 +56,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserbyUsernameOrEmail(String username, String email) {
-        return userRepo.findByUsernameOrEmail(username, email).orElse(null);
+    public User getUserByPseudoOrEmail(String pseudo, String email) {
+        return userRepo.findByPseudoOrEmail(pseudo, email).orElse(null);
     }
 
     @Override
@@ -66,8 +66,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Boolean existsByUsername(String username) {
-        return userRepo.existsByUsername(username);
+    public Boolean existsByPseudo(String pseudo) {
+        return userRepo.existsByPseudo(pseudo);
     }
 
     @Override
@@ -76,8 +76,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByUsername(String username) {
-        return userRepo.findByUsername(username);
+    public User findByPseudo(String pseudo) {
+        return userRepo.findByPseudo(pseudo);
     }
 
     @Override

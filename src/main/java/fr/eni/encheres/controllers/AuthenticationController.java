@@ -38,8 +38,8 @@ public class AuthenticationController {
     @PostMapping("/signup")
     public ResponseEntity<?> register(@Valid @RequestBody RegisterUserDto registerUserDto) {
         // add check for username exists in a DB
-        if(userService.existsByUsername(registerUserDto.getUserName())){
-            return new ResponseEntity<>("Username is already taken!", HttpStatus.BAD_REQUEST);
+        if(userService.existsByPseudo(registerUserDto.getPseudo())){
+            return new ResponseEntity<>("Pseudo is already taken!", HttpStatus.BAD_REQUEST);
         }
         // add check for email exists in DB
         if(userService.existsByEmail(registerUserDto.getEmail())){

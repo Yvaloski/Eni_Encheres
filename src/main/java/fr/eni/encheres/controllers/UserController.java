@@ -30,7 +30,7 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
 
-        existingUser.setUsername(userDto.getUsername());
+        existingUser.setPseudo(userDto.getPseudo());
         existingUser.setFirstName(userDto.getFirstName());
         existingUser.setFamilyName(userDto.getFamilyName());
         existingUser.setEmail(userDto.getEmail());

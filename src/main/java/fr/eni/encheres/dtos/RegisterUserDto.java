@@ -12,14 +12,14 @@ public class RegisterUserDto {
     @NotBlank(message = "Password cannot be blank")
     @Length(min = 3, max = 20, message = "Password must be between 3-20 characters")
     private String password;
-    @NotBlank(message = "Username cannot be blank")
-    @Length(min = 3, max = 20, message = "Username must be between 3-20 characters")
-    private String userName;
+    @NotBlank(message = "Pseudo cannot be blank")
+    @Length(min = 3, max = 20, message = "Pseudo must be between 3-20 characters")
+    private String pseudo;
     @NotBlank(message = "Firstname cannot be blank")
     @Length(min = 3, max = 20, message = "Firstname must be between 3-20 characters")
     private String firstName;
-    @NotBlank(message = "Familyname cannot be blank")
-    @Length(min = 3, max = 20, message = "Familyname must be between 3-20 characters")
+    @NotBlank(message = "Family name cannot be blank")
+    @Length(min = 3, max = 20, message = "Family name must be between 3-20 characters")
     private String familyName;
     @Pattern(regexp = "0[0-9]{9}", message = "The phone number must follow the standard phone number format : start with 0 and followed by 9 numbers")
     private String phone;
@@ -49,12 +49,12 @@ public class RegisterUserDto {
         this.role = role;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getPseudo() {
+        return pseudo;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setPseudo(String pseudo) {
+        this.pseudo = pseudo;
     }
 
     public String getPhone() {

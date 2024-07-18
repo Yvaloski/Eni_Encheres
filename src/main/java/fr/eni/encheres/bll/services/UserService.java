@@ -16,15 +16,15 @@ public interface UserService {
 
      User updateUser(User user);
 
-     User getUserbyUsernameOrEmail(String username, String email);
+     User getUserByPseudoOrEmail(String username, String email);
 
      Boolean existsByEmail(String email);
 
-     Boolean existsByUsername(String username);
+     Boolean existsByPseudo(String pseudo);
 
      User getUserByEmail(String email);
 
-     User findByUsername(String username);
+     User findByPseudo(String username);
 
      void deactivateUser(long id);
 

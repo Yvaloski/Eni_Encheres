@@ -5,10 +5,7 @@ import fr.eni.encheres.dal.UserRepository;
 import fr.eni.encheres.dtos.LoginUserDto;
 import fr.eni.encheres.dtos.RegisterUserDto;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -32,12 +29,9 @@ public class AuthenticationService  {
 
     public User signup(RegisterUserDto input) {
         // Vérifier si l'utilisateur existe déjà
-//        if (userRepository.findByUsername(input.getUserName()).isPresent()) {
-//            throw new RuntimeException("L'utilisateur existe déjà");
-//        }
 
         User user = new User();
-        user.setUsername(input.getUserName());
+        user.setPseudo(input.getPseudo());
         user.setFamilyName(input.getFamilyName());
         user.setFirstName(input.getFirstName());
         user.setEmail(input.getEmail());

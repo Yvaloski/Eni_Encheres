@@ -13,9 +13,9 @@ public class UserDto {
     @NotBlank(message = "Password cannot be blank")
     @Length(min = 3, max = 20, message = "Password must be between 3-20 characters")
     private String password;
-    @NotBlank(message = "Username cannot be blank")
-    @Length(min = 3, max = 20, message = "Username must be between 3-20 characters")
-    private String username;
+    @NotBlank(message ="Pseudo cannot be blank")
+    @Length(min = 3, max = 20, message = "Pseudo must be between 3-20 characters")
+    private String pseudo;
     @NotBlank(message = "Firstname cannot be blank")
     @Length(min = 3, max = 20, message = "Firstname must be between 3-20 characters")
     private String firstName;
@@ -48,12 +48,12 @@ public class UserDto {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getPseudo() {
+        return pseudo;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setPseudo(String pseudo) {
+        this.pseudo = pseudo;
     }
 
     public String getFirstName() {

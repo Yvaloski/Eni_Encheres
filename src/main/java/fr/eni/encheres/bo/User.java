@@ -14,8 +14,10 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idUser;
 
-    @Column
     private String username;
+
+    @Column
+    private String pseudo;
 
     @Column
     private String familyName;
@@ -56,9 +58,9 @@ public class User implements UserDetails {
 
 
 
-    public User(int idUser, String username, String familyName, String firstName, String email, String phone, String address, String postalCode, String city, String password, int credit, boolean isAdmin, boolean isActive) {
+    public User(int idUser, String pseudo, String familyName, String firstName, String email, String phone, String address, String postalCode, String city, String password, int credit, boolean isAdmin, boolean isActive) {
         this.idUser = idUser;
-        this.username = username;
+        this.pseudo = pseudo;
         this.familyName = familyName;
         this.firstName = firstName;
         this.email = email;
@@ -216,11 +218,20 @@ public class User implements UserDetails {
         this.active = isActive;
     }
 
+    public String getPseudo() {
+        return pseudo;
+    }
+
+    public void setPseudo(String pseudo) {
+        this.pseudo = pseudo;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "idUser=" + idUser +
                 ", username='" + username + '\'' +
+                ", pseudo='" + pseudo + '\'' +
                 ", familyName='" + familyName + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", email='" + email + '\'' +
@@ -230,8 +241,9 @@ public class User implements UserDetails {
                 ", city='" + city + '\'' +
                 ", password='" + password + '\'' +
                 ", credit=" + credit +
-                ", isAdmin=" + admin +
-                ", isActive=" + active +
+                ", admin=" + admin +
+                ", active=" + active +
+                ", role='" + role + '\'' +
                 '}';
     }
 }
