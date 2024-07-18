@@ -5,9 +5,11 @@ import fr.eni.encheres.bll.services.BidService;
 import fr.eni.encheres.bll.services.UserService;
 import fr.eni.encheres.bo.Bid;
 
+import fr.eni.encheres.bo.Product;
 import fr.eni.encheres.bo.User;
 import fr.eni.encheres.dal.BidRepository;
 import fr.eni.encheres.dal.UserRepository;
+import fr.eni.encheres.exceptions.ProductNotFoundException;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -28,6 +30,9 @@ public class BidServiceImpl implements BidService {
     public void addBid(Bid bid) {
 
         User precedentBidder = new User();
+        if (bid.getProduct() == null) {
+            throw new ProductNotFoundException("Product Not Found");
+        }
         long idProduct = bid.getProduct().getIdProduct();
 
         User newBidder = bid.getBidder();
