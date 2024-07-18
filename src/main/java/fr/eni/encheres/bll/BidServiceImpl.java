@@ -2,10 +2,7 @@ package fr.eni.encheres.bll;
 
 
 import fr.eni.encheres.bll.services.BidService;
-import fr.eni.encheres.bll.services.UserService;
 import fr.eni.encheres.bo.Bid;
-
-import fr.eni.encheres.bo.Product;
 import fr.eni.encheres.bo.User;
 import fr.eni.encheres.dal.BidRepository;
 import fr.eni.encheres.dal.UserRepository;
@@ -18,12 +15,10 @@ public class BidServiceImpl implements BidService {
 
     BidRepository bidRepo;
     UserRepository userRepo;
-    UserService userService;
 
-    public BidServiceImpl(BidRepository bidRepo, UserRepository userRepo, UserService userService) {
+    public BidServiceImpl(BidRepository bidRepo, UserRepository userRepo) {
         this.bidRepo = bidRepo;
         this.userRepo = userRepo;
-        this.userService = userService;
     }
 
     @Override
@@ -123,10 +118,10 @@ public class BidServiceImpl implements BidService {
             int bestOffer = 0;
             Bid bestBid = null;
 
-            for (int i = 0; i < lstBids.size(); i++) {
-                if(lstBids.get(i).getOffer() > bestOffer) {
-                    bestOffer = lstBids.get(i).getOffer();
-                    bestBid = lstBids.get(i);
+            for (Bid Bid : lstBids) {
+                if (Bid.getOffer() > bestOffer) {
+                    bestOffer = Bid.getOffer();
+                    bestBid = Bid;
                 }
             }
             return bestBid;

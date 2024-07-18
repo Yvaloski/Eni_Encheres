@@ -3,6 +3,7 @@ package fr.eni.encheres.controllers;
 import fr.eni.encheres.bll.services.UserService;
 import fr.eni.encheres.bo.User;
 import fr.eni.encheres.dtos.UserDto;
+import jakarta.annotation.security.RolesAllowed;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 @CrossOrigin
@@ -47,18 +48,21 @@ public class UserController {
     @GetMapping("/{id}/delete")
     public String removeUser(@PathVariable long id) {
         userService.deleteUser(id);
-        return "OK";
+        return "User was deleted successfully, along with their bids and auctions";
     }
 
+    @RolesAllowed("ROLE_ADMIN")
     @GetMapping("/{id}/deactivate")
     public String deactivateUser(@PathVariable long id) {
-        return "OK";
+        userService.deactivateUser(id);
+        return "User has been deactivated successfully";
     }
 
+    @RolesAllowed("ROLE_ADMIN")
     @GetMapping("/{id}/activate")
     public String activateUser(@PathVariable long id) {
-        //will need to add the attribute "active" in the User class :d
-        return "OK";
+        userService.activateUser(id);
+        return "User has been activated successfully";
     }
 
 

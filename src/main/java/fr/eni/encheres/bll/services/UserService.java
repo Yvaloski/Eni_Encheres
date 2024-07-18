@@ -16,8 +16,6 @@ public interface UserService {
 
      User updateUser(User user);
 
-     void setActiveStatusByIdUser (long id, boolean active);
-
      User getUserbyUsernameOrEmail(String username, String email);
 
      Boolean existsByEmail(String email);
@@ -27,4 +25,9 @@ public interface UserService {
      User getUserByEmail(String email);
 
      User findByUsername(String username);
+
+     void deactivateUser(long id);
+
+     void activateUser(long id);
+
 }
