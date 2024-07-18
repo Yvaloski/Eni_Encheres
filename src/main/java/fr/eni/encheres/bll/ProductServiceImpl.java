@@ -24,6 +24,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void addProduct(Product product) {
+        if (!product.getSeller().isActive()) {
+            throw new RuntimeException("The user is not active, they cannot sell items");
+        }
         productRepo.save(product);
     }
 
@@ -72,5 +75,10 @@ public class ProductServiceImpl implements ProductService {
             return null;
         }
         return productRepo.findProductsByCategory(category);
+    }
+
+    @Override
+    public List<Product> getProductsByName(String name) {
+        return productRepo.findProductsByNameProductContaining(name);
     }
 }

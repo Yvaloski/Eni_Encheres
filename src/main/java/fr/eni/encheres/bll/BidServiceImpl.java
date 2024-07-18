@@ -30,8 +30,18 @@ public class BidServiceImpl implements BidService {
     public void addBid(Bid bid) {
 
         User precedentBidder = new User();
+
+        if (!bid.getBidder().isActive()) {
+            throw new RuntimeException("The user isn't active, they cannot bid");
+        }
         if (bid.getProduct() == null) {
             throw new ProductNotFoundException("Product Not Found");
+        }
+        if (bid.getBidDate().isBefore(bid.getProduct().getAuctionStart()) ) {
+            throw new RuntimeException("The auction hasn't started yet.");
+        }
+        if (bid.getBidDate().isAfter(bid.getProduct().getAuctionEnd()) ) {
+            throw new RuntimeException("The auction has ended.");
         }
         long idProduct = bid.getProduct().getIdProduct();
 

@@ -23,4 +23,6 @@ public interface ProductService {
     Map<String, Product> getByIdProduct(long id);
 
     List<Product> getProductsByCategory(String label);
+
+    List<Product> getProductsByName(String name);
 }
