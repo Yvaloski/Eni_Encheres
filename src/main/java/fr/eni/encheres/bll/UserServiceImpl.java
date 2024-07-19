@@ -45,8 +45,39 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(long id) {
-        userRepo.deleteById(id);
+    public void deleteUser(long idUserToDelete) {
+        User userToDelete = this.getUserById(idUserToDelete);
+        //vérification de l'existence du compte dédié aux user deleted
+        //et création le cas échéant
+        User deletedAccount = userRepo.findByPseudo("deleted");
+        if(deletedAccount == null) {
+            deletedAccount = this.createDeletedAccount();
+        }
+
+        this.cancelOngoingAndFutureUserSales(userToDelete);
+        this.cancelOngoingUserBids(userToDelete);
+
+        //récupération des ventes passées et des enchères passées
+        //après suppression des ventes en cours et des enchères sur les ventes en cours de l'user à supprimer
+        List<Product> lstProducts = productRepo.findBySellerIdUser(idUserToDelete);
+        List<Bid> lstBids = bidRepo.findByBidder(userToDelete);
+        for (Product product : lstProducts) {
+            product.setSeller(deletedAccount);
+            productRepo.save(product);
+        }
+        for (Bid bid : lstBids) {
+            bid.setBidder(deletedAccount);
+            bidRepo.save(bid);
+        }
+
+        userRepo.deleteById(idUserToDelete);
+    }
+
+    private User createDeletedAccount() {
+        User deletedAccount = new User();
+        deletedAccount.setPseudo("deleted");
+        deletedAccount.setEmail("deleted");
+        return userRepo.save(deletedAccount);
     }
 
     @Override
@@ -83,7 +114,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deactivateUser(long  id) {
         User user = userRepo.findById(id).orElseThrow(() -> new UserNotFoundException("User not found"));
-        this.cancelOngoingUserSales(user);
+        this.cancelOngoingAndFutureUserSales(user);
         this.cancelOngoingUserBids(user);
         user.setActive(false);
         userRepo.save(user);
@@ -96,9 +127,9 @@ public class UserServiceImpl implements UserService {
         userRepo.save(user);
     }
 
-    private void cancelOngoingUserSales(User user) {
-        List<Product> userSales = productRepo.findBySellerIdUser(user.getIdUser());
-        for (Product product : userSales) {
+    private void cancelOngoingAndFutureUserSales(User user) {
+        List<Product> lstSales = productRepo.findBySellerIdUser(user.getIdUser());
+        for (Product product : lstSales) {
             //vente pas encore commencée : delete simple
             if (product.getAuctionStart().isAfter(LocalDate.now())) {
                 productRepo.delete(product);
@@ -113,13 +144,14 @@ public class UserServiceImpl implements UserService {
                 }
                 productRepo.delete(product);
             }
+            //les ventes passées sont intouchées
         }
     }
 
     private void cancelOngoingUserBids(User user) {
         boolean OK = false;
-        List<Bid> userBids = bidRepo.findByBidder(user);
-        for (Bid bid : userBids) {
+        List<Bid> lstBids = bidRepo.findByBidder(user);
+        for (Bid bid : lstBids) {
             if (bid.getProduct().getAuctionEnd().isAfter(LocalDate.now())) {
                 //l'utilisateur a enchéri sur une vente en cours
                 Bid highestBid = bidService.getHighestBid(bid.getProduct().getIdProduct());
@@ -154,6 +186,7 @@ public class UserServiceImpl implements UserService {
                     bidRepo.delete(bid);
                 }
             }
+            //les offres faite ssur des ventes passées sont intouchées
         }
     }
 
