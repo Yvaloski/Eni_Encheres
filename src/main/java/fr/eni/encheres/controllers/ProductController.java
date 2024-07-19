@@ -47,8 +47,7 @@ public class ProductController {
     }
 
     @PostMapping("/add")
-    public Product addProduct(@Valid @RequestBody ProductDto productDto) {
-        Product product = new Product();
+    public Product addProduct(@Valid @RequestBody ProductDto productDto) {Product product = new Product();
         product.setNameProduct(productDto.getNameProduct());
         product.setDescriptionProduct(productDto.getDescriptionProduct());
         product.setAuctionStart(productDto.getAuctionStart());

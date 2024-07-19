@@ -39,15 +39,13 @@ public class SecurityConfig{
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/swagger-ui/**","/v3/**").permitAll()
-                        .requestMatchers("/products/","/products/category/**","/bids/**","/categories/**").permitAll()
+                        .requestMatchers("/products/","/products/category/**","products/by-product-name/**","/bids/**","/categories/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
 
 
-                ).formLogin((form) -> form
-                        .loginPage("/login")
-                        .permitAll()
-                ).addFilterAfter(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                )
+                .addFilterAfter(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
 
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
