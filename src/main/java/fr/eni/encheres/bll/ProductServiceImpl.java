@@ -6,6 +6,7 @@ import fr.eni.encheres.bo.Product;
 
 import fr.eni.encheres.dal.CategoryRepository;
 import fr.eni.encheres.dal.ProductRepository;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -26,12 +27,20 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void addProduct(Product product) {
         this.validateProduct(product);
+        if (product.getAuctionStart().equals(LocalDate.now())) {
+            product.setSaleState("open");
+        } else {
+            product.setSaleState("upcoming");
+        }
         productRepo.save(product);
     }
 
     private void validateProduct(Product product) {
         if (!product.getSeller().isActive()) {
             throw new RuntimeException("The user is not active, they cannot sell items");
+        }
+        if (product.getAuctionStart().isBefore(LocalDate.now())) {
+            throw new RuntimeException("The auction must start today or later");
         }
         if(!product.getAuctionEnd().isAfter(product.getAuctionStart())) {
             throw new RuntimeException("The auction end Date must be after start Date");
@@ -98,5 +107,25 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> getProductsByName(String name) {
         return productRepo.findProductsByNameProductContaining(name);
+    }
+
+    @Scheduled(cron = "@daily")
+    public void updateSaleStateDaily () {
+        List<Product> lstStartingAuctions = productRepo.findByAuctionStart(LocalDate.now());
+        List<Product> lstClosingAuctions = productRepo.findByAuctionEnd(LocalDate.now());
+
+        for (Product product : lstStartingAuctions) {
+            product.setSaleState("open");
+            productRepo.save(product);
+        }
+        for (Product product : lstClosingAuctions) {
+            product.setSaleState("closed");
+            productRepo.save(product);
+        }
+
+    }
+    @Override
+    public List<Product> getStartingAuctions() {
+        return productRepo.findByAuctionStart(LocalDate.now());
     }
 }
