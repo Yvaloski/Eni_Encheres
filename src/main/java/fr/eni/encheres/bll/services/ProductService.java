@@ -26,5 +26,4 @@ public interface ProductService {
 
     List<Product> getProductsByName(String name);
 
-    List<Product> getStartingAuctions();
 }

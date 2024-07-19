@@ -1,11 +1,15 @@
 package fr.eni.encheres.bll;
 
 import fr.eni.encheres.bll.services.ProductService;
+import fr.eni.encheres.bo.Bid;
 import fr.eni.encheres.bo.Category;
 import fr.eni.encheres.bo.Product;
 
+import fr.eni.encheres.bo.User;
+import fr.eni.encheres.dal.BidRepository;
 import fr.eni.encheres.dal.CategoryRepository;
 import fr.eni.encheres.dal.ProductRepository;
+import fr.eni.encheres.dal.UserRepository;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -16,12 +20,16 @@ import java.util.Map;
 @Service
 public class ProductServiceImpl implements ProductService {
 
-    private final CategoryRepository categoryRepository;
+    CategoryRepository categoryRepository;
     ProductRepository productRepo;
+    BidRepository bidRepo;
+    UserRepository userRepo;
 
-    public ProductServiceImpl(ProductRepository productRepo, CategoryRepository categoryRepository) {
-        this.productRepo = productRepo;
+    public ProductServiceImpl(CategoryRepository categoryRepository, ProductRepository productRepo, BidRepository bidRepo, UserRepository userRepo) {
         this.categoryRepository = categoryRepository;
+        this.productRepo = productRepo;
+        this.bidRepo = bidRepo;
+        this.userRepo = userRepo;
     }
 
     @Override
@@ -109,7 +117,7 @@ public class ProductServiceImpl implements ProductService {
         return productRepo.findProductsByNameProductContaining(name);
     }
 
-    @Scheduled(cron = "@daily")
+    @Scheduled(cron = "0 0 0 * * *")
     public void updateSaleStateDaily () {
         List<Product> lstStartingAuctions = productRepo.findByAuctionStart(LocalDate.now());
         List<Product> lstClosingAuctions = productRepo.findByAuctionEnd(LocalDate.now());
@@ -120,13 +128,34 @@ public class ProductServiceImpl implements ProductService {
         }
         for (Product product : lstClosingAuctions) {
             product.setSaleState("closed");
+            Bid highestBid = this.getHighestBid(product.getIdProduct());
+            if (highestBid != null) {
+                User seller = product.getSeller();
+                seller.setCredit(seller.getCredit() + highestBid.getOffer());
+                userRepo.save(seller);
+                //ajout noptifications pour venduer et acheteur à implémenter
+                product.setFinalPrice(highestBid.getOffer());
+            }
             productRepo.save(product);
-
         }
-
     }
-    @Override
-    public List<Product> getStartingAuctions() {
-        return productRepo.findByAuctionStart(LocalDate.now());
+
+    private Bid getHighestBid(long  idProduct) {
+        List<Bid> lstBids =  bidRepo.findByProductIdProduct(idProduct);
+        if (lstBids.isEmpty()) {
+            return null;
+        }
+        else {
+            int bestOffer = 0;
+            Bid bestBid = null;
+
+            for (Bid Bid : lstBids) {
+                if (Bid.getOffer() > bestOffer) {
+                    bestOffer = Bid.getOffer();
+                    bestBid = Bid;
+                }
+            }
+            return bestBid;
+        }
     }
 }
