@@ -121,6 +121,7 @@ public class ProductServiceImpl implements ProductService {
         for (Product product : lstClosingAuctions) {
             product.setSaleState("closed");
             productRepo.save(product);
+
         }
 
     }
