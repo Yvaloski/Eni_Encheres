@@ -54,20 +54,20 @@ public class UserServiceImpl implements UserService {
             deletedAccount = this.createDeletedAccount();
         }
 
-        this.cancelOngoingAndFutureUserSales(userToDelete);
         this.cancelOngoingUserBids(userToDelete);
+        this.cancelOngoingAndFutureUserSales(userToDelete);
 
         //récupération des ventes passées et des enchères passées
         //après suppression des ventes en cours et des enchères sur les ventes en cours de l'user à supprimer
         List<Product> lstProducts = productRepo.findBySellerIdUser(idUserToDelete);
         List<Bid> lstBids = bidRepo.findByBidder(userToDelete);
-        for (Product product : lstProducts) {
-            product.setSeller(deletedAccount);
-            productRepo.save(product);
-        }
         for (Bid bid : lstBids) {
             bid.setBidder(deletedAccount);
             bidRepo.save(bid);
+        }
+        for (Product product : lstProducts) {
+            product.setSeller(deletedAccount);
+            productRepo.save(product);
         }
 
         userRepo.deleteById(idUserToDelete);
@@ -114,8 +114,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deactivateUser(long  id) {
         User user = userRepo.findById(id).orElseThrow(() -> new UserNotFoundException("User not found"));
-        this.cancelOngoingAndFutureUserSales(user);
         this.cancelOngoingUserBids(user);
+        this.cancelOngoingAndFutureUserSales(user);
         user.setActive(false);
         userRepo.save(user);
     }
