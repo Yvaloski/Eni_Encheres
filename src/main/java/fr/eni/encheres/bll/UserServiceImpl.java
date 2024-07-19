@@ -77,6 +77,7 @@ public class UserServiceImpl implements UserService {
         User deletedAccount = new User();
         deletedAccount.setPseudo("deleted");
         deletedAccount.setEmail("deleted");
+        deletedAccount.setRole(("ROLE_USER"));
         return userRepo.save(deletedAccount);
     }
 
