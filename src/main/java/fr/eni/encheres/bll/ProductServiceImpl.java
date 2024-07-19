@@ -53,7 +53,7 @@ public class ProductServiceImpl implements ProductService {
         if(!product.getAuctionEnd().isAfter(product.getAuctionStart())) {
             throw new RuntimeException("The auction end Date must be after start Date");
         }
-        if(product.getAuctionStart().plusMonths(1).isAfter(product.getAuctionEnd())) {
+        if(product.getAuctionStart().plusMonths(1).isBefore(product.getAuctionEnd())) {
             throw new RuntimeException("The auction cannot last for more than one month");
         }
     }
